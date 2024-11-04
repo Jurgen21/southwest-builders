@@ -1,0 +1,15 @@
+{
+    "name": "lenov/projekti",
+    "description": "projekti im",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jurgen"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
