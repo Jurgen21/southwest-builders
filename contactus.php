@@ -20,13 +20,8 @@ try {
     $name = isset($_POST["name"]) ? trim($_POST["name"]) : '';
     $surname = isset($_POST["surname"]) ? trim($_POST["surname"]) : '';
     $email = isset($_POST["email"]) ? trim($_POST["email"]) : '';
-    $mobile = isset($_POST["mobile"]) ? trim($_POST["mobile"]) : '';
-    $postcode = isset($_POST["postcode"]) ? trim($_POST["postcode"]) : '';
-    $country = isset($_POST["country"]) ? trim($_POST["country"]) : '';
-    $position = isset($_POST["position"]) ? trim($_POST["position"]) : '';
-    $years = isset($_POST["years"]) ? trim($_POST["years"]) : '';
-    $permit = isset($_POST["permit"]) ? trim($_POST["permit"]) : '';
     $description = isset($_POST["description"]) ? trim($_POST["description"]) : '';
+    $mobile = isset($_POST["mobile"]) ? trim($_POST["mobile"]) : '';
 
     // Validoni të dhënat bazike
     if (empty($name) || empty($surname) || empty($email) || empty($mobile)) {
@@ -38,11 +33,6 @@ try {
         throw new Exception("Invalid email format");
     }
 
-    // Kontrolloni nëse është ngarkuar një file
-    if (!isset($_FILES['cv']) || $_FILES['cv']['error'] === UPLOAD_ERR_NO_FILE) {
-        throw new Exception("Please upload your CV");
-    }
-
     // Përpunoni file-in
     $cvFileName = $_FILES['cv']['name'];
     $cvFileTmp = $_FILES['cv']['tmp_name'];
@@ -51,24 +41,6 @@ try {
     // Krijoni dosjen uploads nëse nuk ekziston
     if (!file_exists('uploads')) {
         mkdir('uploads', 0777, true);
-    }
-
-    // Validoni tipin e file-it
-    $validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    $fileType = mime_content_type($cvFileTmp);
-
-    if (!in_array($fileType, $validFileTypes)) {
-        throw new Exception("Invalid file type. Only PDF, DOC, and DOCX are allowed.");
-    }
-
-    // Kontrolloni madhësinë e file-it (max 5MB)
-    if ($_FILES['cv']['size'] > 5 * 1024 * 1024) {
-        throw new Exception("File is too large. Maximum size is 5MB.");
-    }
-
-    // Zhvendosni file-in e uploaduar
-    if (!move_uploaded_file($cvFileTmp, $cvFilePath)) {
-        throw new Exception("File upload failed.");
     }
 
     // Krijoni instancën e PHPMailer
@@ -114,22 +86,13 @@ $mail->SetFrom('jurgentanushi7@gmail.com','Tpp form');
     echo "Success!";
     }
 
-    // Bashkëngjitni CV-në
-    $mail->addAttachment($cvFilePath, $cvFileName);
-
     // Përmbajtja e email-it
     $mail->isHTML(true);
     $mail->Subject = "New Job Application from $name $surname";
 
-    $mailBody = "<h1>Job Application Details</h1>";
+    $mailBody = "<h1>Contact Information</h1>";
     $mailBody .= "<p><strong>Name:</strong> $name $surname</p>";
     $mailBody .= "<p><strong>Email:</strong> $email</p>";
-    $mailBody .= "<p><strong>Mobile:</strong> $mobile</p>";
-    $mailBody .= "<p><strong>Postcode:</strong> $postcode</p>";
-    $mailBody .= "<p><strong>Country:</strong> $country</p>";
-    $mailBody .= "<p><strong>Position Applied For:</strong> $position</p>";
-    $mailBody .= "<p><strong>Years of Experience:</strong> $years</p>";
-    $mailBody .= "<p><strong>Work Permit:</strong> $permit</p>";
     $mailBody .= "<p><strong>Description:</strong><br>" . nl2br(htmlspecialchars($description)) . "</p>";
 
     $mail->Body = $mailBody;
@@ -141,7 +104,7 @@ $mail->SetFrom('jurgentanushi7@gmail.com','Tpp form');
     }
 
     // Ridrejtoni te faqja e suksesit
-    header("Location: cv.html");
+    header("Location: contactus.html");
     exit();
 
 } catch (Exception $e) {

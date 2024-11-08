@@ -55,6 +55,7 @@ body{
 .text{
     font-weight: 300;
     opacity: 0.9;
+    font-size: 14px;
     color: #e8a812;
 }
 .contact-bg .text{
@@ -362,7 +363,7 @@ input[type="file"]::-webkit-file-upload-button:hover {
         width: 250px;
     }
     a img {
-        height: 150px;
+        height: 250px;
     }
     h1 {
         font-size: 30px;

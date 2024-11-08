@@ -14,7 +14,7 @@
     
     <section class = "contact-section">
       <div class = "contact-bg">
-        <h1><a href="homepage.html">Southwest Builders (London) Limited</a></h1>
+        <h1><a href="index.html">Southwest Builders (London) Limited</a></h1>
         <h2>contact us</h2>
         <div class = "line">
           <div></div>
@@ -22,9 +22,7 @@
           <div></div>
         </div>
         <p class="text">Have a construction project in mind? We're here to help! Whether you're looking for building services, renovations, or repairs, our expert team is ready to discuss your needs. Contact us today to learn more about our services and get a free consultation. Simply fill out the form below, and we’ll get back to you as soon as possible.</p>
-
       </div>
-
 
       <div class = "contact-body">
         <div class = "contact-info">
@@ -51,17 +49,19 @@
         </div>
 
         <div class = "contact-form">
-          <form>
+          <form action="contactus.php" method="POST" enctype="multipart/form-data">
             <div>
-              <input type = "text" class = "form-control" placeholder="First Name">
-              <input type = "text" class = "form-control" placeholder="Last Name">
+                <input type="text" name="name" class="form-control" placeholder="First Name">
+                <input type="text" name="surname" class="form-control" placeholder="Last Name">
             </div>
             <div>
-              <input type = "email" class = "form-control" placeholder="E-mail">
-              <input type = "text" class = "form-control" placeholder="Phone">
+                <input type="email" name="email" class="form-control" placeholder="E-mail">
+                <input type="text" name="mobile" class="form-control" placeholder="Phone">
             </div>
-            <textarea rows = "5" placeholder="Message" class = "form-control"></textarea>
-            <input type = "submit" class = "send-btn" value = "send message">
+            <textarea rows="5" name="description" placeholder="Message" class="form-control"></textarea>
+            <input type="submit" class="send-btn" value="Send Message">
+        </form>
+        
           </form>
 
           <div>
